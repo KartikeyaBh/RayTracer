@@ -463,7 +463,7 @@ glm::vec3 RayTracer::TraceRay(const Ray& r, int depth, RayType ray_type, Camera*
         }
         if (settings.refractions) {
             //refraction
-            glm::vec3 N = i.normal;
+            glm::vec3 N = GeometricN;
             glm::vec3 V = - glm::normalize(r.direction);
             float NVv = dot(N, V);
 
@@ -471,7 +471,7 @@ glm::vec3 RayTracer::TraceRay(const Ray& r, int depth, RayType ray_type, Camera*
 
             // ray is entering object
             if (NVv > 0)  { nr = n_air / index_of_refraction;}
-            else {nr = index_of_refraction / n_air; N= -N;}
+            else {nr = index_of_refraction / n_air;}
 
             if ((1 - nr * nr * (1 - NVv * NVv)) < 0 || (kt[0] <= 0.0f&&kt[1]<=0.0f&&kt[2]<=0.0f)) return intensity;
 
